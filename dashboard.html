@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload Dashboard</title>
+
+<style>
+*{box-sizing:border-box;font-family:Arial}
+body{margin:0;background:#f4f6f9}
+.container{max-width:900px;margin:50px auto;padding:20px}
+.card{background:#fff;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.1);padding:30px}
+h1{text-align:center;margin-bottom:30px}
+.upload-box{
+  border:2px dashed #bfc9d9;
+  border-radius:12px;padding:25px;margin-bottom:25px;text-align:center;
+}
+input[type=file]{display:none}
+.btn{
+  background:#4a90e2;color:#fff;padding:12px 22px;
+  border:none;border-radius:8px;cursor:pointer;
+}
+.file-name{margin-top:10px;color:#555}
+.success{
+  display:none;margin-top:20px;padding:12px;
+  background:#e6ffed;border-radius:8px;text-align:center;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<div class="card">
+<h1>Upload Resume & Job Description</h1>
+
+<form id="uploadForm">
+
+<div class="upload-box">
+<label for="resumeFile" class="btn">Upload Resume</label>
+<input type="file" id="resumeFile" accept=".pdf,.doc,.docx,.txt" required>
+<div id="resumeName" class="file-name">No file selected</div>
+</div>
+
+<div class="upload-box">
+<label for="jdFile" class="btn">Upload Job Description</label>
+<input type="file" id="jdFile" accept=".pdf,.doc,.docx,.txt" required>
+<div id="jdName" class="file-name">No file selected</div>
+</div>
+
+<button class="btn" type="submit">Submit</button>
+<div id="successMsg" class="success">Files uploaded 🎉</div>
+
+</form>
+</div>
+</div>
+
+<script>
+const allowed=["pdf","doc","docx","txt"];
+
+function check(file){
+ const ext=file.name.split('.').pop().toLowerCase();
+ return allowed.includes(ext);
+}
+
+resumeFile.onchange=()=>{
+ if(check(resumeFile.files[0])){
+   resumeName.innerText=resumeFile.files[0].name;
+ }else{
+   alert("Only PDF DOC DOCX TXT allowed");
+   resumeFile.value="";
+ }
+}
+
+jdFile.onchange=()=>{
+ if(check(jdFile.files[0])){
+   jdName.innerText=jdFile.files[0].name;
+ }else{
+   alert("Only PDF DOC DOCX TXT allowed");
+   jdFile.value="";
+ }
+}
+
+uploadForm.onsubmit=(e)=>{
+ e.preventDefault();
+ successMsg.style.display="block";
+}
+</script>
+</body>
+</html>
